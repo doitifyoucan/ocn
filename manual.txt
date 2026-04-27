@@ -1,0 +1,333 @@
+1) To Study Refractive Index , critical angle of incidence and NA and acceptance angele 
+
+code1: 
+clc;
+clear;
+close;
+n1 = input("Enter RI core: ");
+n2 = input("Enter RI cladding: ");
+NA = sqrt(n1^2 - n2^2);
+disp("Numerical Aperture");
+disp(NA);
+phiC = asin(n2/n1);
+disp("Critical angle in degree.");
+disp(phiC*180/pi);
+n0 = 1;
+thetaA = asin(NA/n0);
+disp("acceptance angle in degree");
+disp(thetaA*180/pi);
+
+code2:
+
+clc;
+clear;
+close;
+v1 = input("velocity in core: ");
+phic = input("Enter critical angle in degree: ");
+phic = phic*pi/180;
+c = 3e8;
+n1 = c/v1;
+disp("RI of core");
+disp(n1);
+n2 = n1*sin(phic);
+disp("RI of cladding");
+disp(n2);
+NA = sqrt(n1^2 - n2^2);
+disp("Numerical Aperture");
+disp(NA);
+n0 = 1;
+thetaA = asin(NA/n0);
+disp("acceptance angle in degree");
+disp(thetaA*180/pi);
+
+
+code3:
+
+clc;
+clear;
+close;
+thetaA = input("Enter given acceptance angle: ");
+delta = input("Enter refractive index difference: ");
+NA = sind(thetaA);
+disp("Numerical Aperture");
+disp(NA);
+n1 = NA / sqrt(2*delta);
+disp("RI of core");
+disp(n1);
+n2 = n1*(1 - delta);
+disp("RI of cladding");
+disp(n2);
+phiC = asind(n2/n1);
+disp("Critical angle in degree.");
+disp(phiC);
+
+
+code4:
+
+clc;
+clear;
+close;
+NA = input("Enter given NA: ");
+n1 = input("Enter RI of core: ");
+n2 = sqrt(n1^2 - NA^2);
+disp("RI of cladding");
+disp(n2);
+n0 = 1.33;
+thetaA = asin(NA/n0);
+disp("acceptance angle in degree");
+disp(thetaA*180/pi);
+phiC = asin(n2/n1);
+disp("Critical angle in degree.");
+disp(phiC*180/pi);
+
+
+
+2) To Study V number and No. of modes supported by fiber 
+
+code1:
+
+clc;
+clear;
+close all;
+lambda1 = input('Enter 1st wavelength: ');
+lambda2 = input('Enter 2nd wavelength: ');
+lambda3 = input('Enter 3rd wavelength: ');
+a = input('Enter core radius: ');
+n1 = input('Enter RI of core: ');
+n2 = input('Enter RI of cladding: ');
+NA = sqrt(n1^2 - n2^2);
+V1 = (2*pi/lambda1) * a * NA;
+disp('V number for wavelength 1: ');
+disp(V1);
+Ms1 = V1^2 / 2;
+disp('No. of modes for wavelength 1: ');
+disp(Ms1);
+V2 = (2*pi/lambda2) * a * NA;
+disp('V number for wavelength 2: ');
+disp(V2);
+Ms2 = V2^2 / 2;
+disp('No. of modes for wavelength 2: ');
+disp(Ms2);
+V3 = (2*pi/lambda3) * a * NA;
+disp('V number for wavelength 3: ');
+disp(V3);
+Ms3 = V3^2 / 2;
+disp('No. of modes for wavelength 3: ');
+disp(Ms3);
+
+
+
+code2:
+
+clc;
+clear;
+close all;
+d = input('Enter core diameter: ');
+n1 = input('Enter RI of core: ');
+delta = input('Enter RRID: ');
+a = d / 2;
+NA = n1 * sqrt(2 * delta);
+Vc = 2.405;
+lambda = (2*pi / Vc) * a * NA;
+disp('Shortest wavelength: ');
+disp(lambda);
+
+
+code3:
+
+clc;
+clear;
+close all;
+lambda1 = input('Enter 1st wavelength: ');
+lambda2 = input('Enter 2nd wavelength: ');
+lambda3 = input('Enter 3rd wavelength: ');
+n1 = input('Enter RI of core: ');
+n2 = input('Enter RI of cladding: ');
+NA = sqrt(n1^2 - n2^2);
+a1 = (2.405 * lambda1) / (NA * 2 * pi);
+d1 = a1 * 2;
+disp('Core diameter for wavelength 1: ');
+disp(d1);
+a2 = (2.405 * lambda2) / (NA * 2 * pi);
+d2 = a2 * 2;
+disp('Core diameter for wavelength 2: ');
+disp(d2);
+a3 = (2.405 * lambda3) / (NA * 2 * pi);
+d3 = a3 * 2;
+disp('Core diameter for wavelength 3: ');
+disp(d3);
+
+
+code4:
+
+clc;
+clear;
+close all;
+a = input('Enter radius of fiber core: ');
+lambda = 800:1:1600;
+NA = [0.24, 0.21, 0.094];
+V1 = (2*pi ./ (lambda*1e-9)) * a * NA(1);
+V2 = (2*pi ./ (lambda*1e-9)) * a * NA(2);
+V3 = (2*pi ./ (lambda*1e-9)) * a * NA(3);
+plot(lambda, V1, '-', lambda, V2, '--', lambda, V3, ':');
+legend('NA=0.24', 'NA=0.21', 'NA=0.094');
+xlabel('Wavelength in nm');
+ylabel('V number');
+title('V number as function of wavelength');
+
+
+
+
+3) To Study Refractive index profile for step index and graded index fiber
+
+
+code1:
+
+clc;
+clear;
+close;
+n1 = input("Enter RI of core: ");
+n2 = input("Enter RI of cladding: ");
+a = input("Enter radius of core: ");
+b = input("Enter radius of cladding: ");
+r = 0:1e-7:b;
+L = length(r);
+for i = 1:1:L
+    if r(i) < a
+        n(i) = n1;
+    else
+        n(i) = n2;
+    endif
+endfor
+plot(r, n);
+axis([0 b n2-0.01 n1+0.01]);
+xlabel("radial distance");
+ylabel("Refractive Index");
+title("RI vs radial distance for SI fiber");
+
+
+code2:
+
+clc;
+clear;
+close;
+n1 = input("Enter RI of core: ");
+n2 = input("Enter RI of cladding: ");
+a = input("Enter radius of core: ");
+b = input("Enter radius of cladding: ");
+r = 0:1e-7:b;
+L = length(r);
+Delta = (n1^2 - n2^2)/(2*n1^2);
+alpha = [1 2 3 15];
+for j = 1:4
+    for i = 1:L
+        if r(i) <= a
+            n(j,i) = n1 * sqrt(1 - 2*Delta*(r(i)/a)^alpha(j));
+        else
+            n(j,i) = n2;
+        endif
+    endfor
+endfor
+plot(r, n(1,:), r, n(2,:), r, n(3,:), r, n(4,:));
+legend("alpha = 1", "alpha = 2", "alpha = 3", "alpha = 15");
+axis([0 b n2-0.01 n1+0.01]);
+xlabel("radial distance");
+ylabel("Refractive Index");
+title("RI vs radial distance for GI fiber");
+
+
+
+4) To Study Attenuation characteristics of Optical Fiber 
+
+code :
+
+clc;
+clear;
+close all;
+Pi = input("Enter Input Power in mW: ");
+L = 0:0.1:150;
+alpha = [0.2 0.5 2];
+Po1 = Pi ./ 10.^(alpha(1)*L/10);
+Po2 = Pi ./ 10.^(alpha(2)*L/10);
+Po3 = Pi ./ 10.^(alpha(3)*L/10);
+figure;
+plot(L, Po1, 'k-', L, Po2, 'b--', L, Po3, 'r:');
+grid on;
+xlabel('Distance (km)');
+ylabel('Output Power (mW)');
+title('Output Power vs. Distance');
+legend('0.2 dB/km', '0.5 dB/km', '2.0 dB/km');
+Pin = 1.5e-3;
+Ps = 2e-6;
+L1 = (10/alpha(1)) * log10(Pin/Ps);
+L2 = (10/alpha(2)) * log10(Pin/Ps);
+L3 = (10/alpha(3)) * log10(Pin/Ps);
+fprintf('Max Distance (0.2 dB/km): %.2f km\n', L1);
+fprintf('Max Distance (0.5 dB/km): %.2f km\n', L2);
+fprintf('Max Distance (2.0 dB/km): %.2f km\n', L3);
+
+
+5) To Study relationship between optical and electrical bandwidth 
+
+code1:
+
+clc;
+clear;
+close;
+Pdc = 300e-6;
+f = 1e6:1e3:300e6;
+w = 2*pi*f;
+tou1 = 5e-9;
+Pew1 = Pdc ./ sqrt(1 + (w*tou1).^2);
+Pratio1 = Pew1 / Pdc;
+tou2 = 2e-9;
+Pew2 = Pdc ./ sqrt(1 + (w*tou2).^2);
+Pratio2 = Pew2 / Pdc;
+plot(log10(f), Pratio1, "k", log10(f), Pratio2, "r");
+legend("tou = 5ns", "tou = 2ns");
+xlabel("log of frequency");
+ylabel("power ratio");
+title("power ratio vs frequency");
+
+
+code2:
+
+6) To Study the characteristics of FBT Coupler
+
+code1:
+
+clc;
+clear;
+close;
+P1 = 100e6;
+lambda = 1000e-9;
+n = 1.65;
+k = 2*pi*n/lambda;
+z = 0:0.01e-9:500e-9;
+P3 = P1*(cos(k.*z)).^2;
+P4 = P1*(sin(k.*z)).^2;
+plot(z, P3/P1, "k-", z, P4/P1, "k--");
+legend("P3/P1", "P4/P1");
+xlabel("Coupler draw length in nm");
+ylabel("Power Ratios");
+title("Coupler Power Distribution");
+
+
+
+code2:
+
+clc;
+clear;
+P1 = 60;
+P2 = 0.004;
+P3 = 26.0;
+P4 = 27.5;
+excess_loss = 10 * log10(P1 / (P3 + P4));
+insertion_loss = 10 * log10(P1 / P4);
+crosstalk = 10 * log10(P2 / P1);
+split_ratio = (P3 / (P3 + P4)) * 100;
+fprintf("Excess Loss = %.4f dB\n", excess_loss);
+fprintf("Insertion Loss = %.4f dB\n", insertion_loss);
+fprintf("Crosstalk = %.4f dB\n", crosstalk);
+fprintf("Split Ratio = %.2f %%\n", split_ratio);
+
